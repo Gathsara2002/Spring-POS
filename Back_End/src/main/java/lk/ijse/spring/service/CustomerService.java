@@ -19,5 +19,5 @@ public interface CustomerService {
 
     CustomerDTO findCustomer(String id);
 
-    void updateCustomer(CustomerDTO c);
+    void updateCustomer(CustomerDTO dto);
 }
