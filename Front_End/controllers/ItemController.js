@@ -3,7 +3,7 @@ getAllItems();
 
 //add item event
 $("#btnItem").click(function () {
-    if (checkAllItems()){
+    if (checkAllItems()) {
         saveItem();
     }
 
@@ -63,7 +63,6 @@ $("#btn-clear").click(function () {
 });
 
 
-
 // CRUD operation Functions
 function saveItem() {
     let itemCode = $("#itemCode").val();
@@ -76,9 +75,6 @@ function saveItem() {
             url: BASE_URL + "item",
             method: "post",
             data: itemFormData,
-            headers:{
-                Auth:"user=admin,pass=admin"
-            },
             success: function (res) {
                 alert(res.message);
                 clearItemInputFields();
@@ -88,8 +84,6 @@ function saveItem() {
                 alert(error.responseJSON.message);
             }
         });
-
-
 
 
     } else {
@@ -103,11 +97,8 @@ function getAllItems() {
     $("#tblItem").empty();
 
     $.ajax({
-        url: BASE_URL+'item',
+        url: BASE_URL + 'item',
         dataType: "json",
-        headers:{
-            Auth:"user=admin,pass=admin"
-        },
         success: function (response) {
             let items = response.data;
             for (let i in items) {
@@ -128,14 +119,10 @@ function getAllItems() {
 }
 
 
-
 function deleteItem(code) {
     $.ajax({
         url: BASE_URL + 'item?code=' + code,
         method: 'delete',
-        headers:{
-            Auth:"user=admin,pass=admin"
-        },
         success: function (resp) {
             alert(resp.message);
             getAllItems();
@@ -165,7 +152,7 @@ function searchItem(code) {
 
         },
         error: function (error) {
-            resp=false;
+            resp = false;
             alert(error.responseJSON.message);
         }
     });
@@ -185,7 +172,7 @@ function updateItem(code) {
             let itemQty = $("#itemQty").val();
             let itemPrice = $("#itemPrice").val();
 
-            item.code=code;
+            item.code = code;
             item.description = itemName;
             item.qtyOnHand = itemQty;
             item.unitPrice = itemPrice;
@@ -193,9 +180,6 @@ function updateItem(code) {
             $.ajax({
                 url: BASE_URL + 'item',
                 method: 'put',
-                headers:{
-                    Auth:"user=admin,pass=admin"
-                },
                 contentType: "application/json",
                 data: JSON.stringify(item),
                 success: function (resp) {
