@@ -14,12 +14,12 @@ public interface ItemService {
 
     void addItem(ItemDTO dto);
 
-    void deleteItem(String id);
+    void deleteItem(String code);
 
     List<ItemDTO> getAllItem();
 
     ItemDTO findItem(String id);
 
-    void updateItem(ItemDTO c);
+    void updateItem(ItemDTO dto);
 
 }
