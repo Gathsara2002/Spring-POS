@@ -1,9 +1,7 @@
 package lk.ijse.spring.controller;
 
-import lk.ijse.spring.dto.OrderDetailsDTO;
 import lk.ijse.spring.dto.OrdersDTO;
-import lk.ijse.spring.service.OrderDetailsService;
-import lk.ijse.spring.service.OrderService;
+import lk.ijse.spring.service.PurchaseOrderService;
 import lk.ijse.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,21 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class PurchaseOrderController {
 
     @Autowired
-    OrderService orderService;
-
-    @Autowired
-    OrderDetailsService orderDetailsService;
+    PurchaseOrderService purchaseOrderService;
 
     @PostMapping
     public ResponseUtil placeOrder(@RequestBody OrdersDTO dto) {
-
-        /*save order*/
-        orderService.addOrder(dto);
-
-        /*save order details*/
-
-        /*update item count*/
-
+        purchaseOrderService.purchaseOrder(dto);
         return new ResponseUtil("Ok", "Successfully Order Placed", dto);
     }
 }
