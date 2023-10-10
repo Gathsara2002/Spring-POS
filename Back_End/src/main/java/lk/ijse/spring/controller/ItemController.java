@@ -25,7 +25,7 @@ public class ItemController {
         return new ResponseUtil("Ok", "Successfully Added", dto);
     }
 
-    @DeleteMapping(params = {"id"})
+    @DeleteMapping(params = {"code"})
     public ResponseUtil deleteItem(String code) {
         service.deleteItem(code);
         return new ResponseUtil("Ok", "Successfully Deleted", code);
@@ -36,7 +36,7 @@ public class ItemController {
         return new ResponseUtil("Ok", "Successfully Loaded", service.getAllItem());
     }
 
-    @GetMapping(params = {"id"})
+    @GetMapping(params = {"code"})
     public ResponseUtil findItem(String code) {
         return new ResponseUtil("Ok", "Successful", service.findItem(code));
     }

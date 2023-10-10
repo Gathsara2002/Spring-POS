@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -52,16 +53,16 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDTO findItem(String id) {
-        if (!itemRepo.existsById(id)) {
-            throw new RuntimeException(id + " Item is not available, please check the Code.!");
+    public ItemDTO findItem(String code) {
+        if (!itemRepo.existsById(code)) {
+            throw new RuntimeException(code + " Item is not available, please check the Code.!");
         }
-        Item item = itemRepo.findById(id).get();
+        Item item = itemRepo.findById(code).get();
         return mapper.map(item, ItemDTO.class);
     }
 
     @Override
-    public void updateItem(ItemDTO dto) {
+    public void updateItem(@RequestBody ItemDTO dto) {
         if (!itemRepo.existsById(dto.getCode())) {
             throw new RuntimeException(dto.getCode() + " Item is not available, please check the Code before update.!");
         }
