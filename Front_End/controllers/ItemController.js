@@ -133,7 +133,6 @@ function getAllItems() {
     });
 }
 
-
 function deleteItem(code) {
     $.ajax({
         url: BASE_URL + 'item?code=' + code,

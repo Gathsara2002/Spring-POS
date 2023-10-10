@@ -50,8 +50,6 @@ $("#btnCusDelete").click(function () {
             alert("Customer Not Removed..!");
         }
     }
-
-
 });
 
 //update  btn event
@@ -69,7 +67,7 @@ $("#btn-clear1").click(function () {
 
 // CRUD operation Functions
 function saveCustomer() {
-   // let customerID = $("#txtCustomerID").val();
+    // let customerID = $("#txtCustomerID").val();
     //check customer is exists or not?
     /*if (searchCustomer(customerID.trim()) == undefined) {
 
@@ -96,8 +94,8 @@ function saveCustomer() {
 
     let formData = $("#customerForm").serialize();
     $.ajax({
-        url: BASE_URL + 'customer',
-        method: 'POST',
+        url: BASE_URL + "customer",
+        method: "post",
         data: formData,
         success: function (res) {
             alert(res.message);
