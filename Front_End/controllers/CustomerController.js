@@ -69,9 +69,9 @@ $("#btn-clear1").click(function () {
 
 // CRUD operation Functions
 function saveCustomer() {
-    let customerID = $("#txtCustomerID").val();
+   // let customerID = $("#txtCustomerID").val();
     //check customer is exists or not?
-    if (searchCustomer(customerID.trim()) == undefined) {
+    /*if (searchCustomer(customerID.trim()) == undefined) {
 
         let formData = $("#customerForm").serialize();
         $.ajax({
@@ -92,7 +92,22 @@ function saveCustomer() {
     } else {
         alert("Customer already exits.!");
         clearCustomerInputFields();
-    }
+    }*/
+
+    let formData = $("#customerForm").serialize();
+    $.ajax({
+        url: BASE_URL + 'customer',
+        method: 'POST',
+        data: formData,
+        success: function (res) {
+            alert(res.message);
+            clearCustomerInputFields();
+            getAllCustomers();
+        },
+        error: function (error) {
+            alert(error.responseJSON.message);
+        }
+    });
 }
 
 function getAllCustomers() {
@@ -123,8 +138,8 @@ function getAllCustomers() {
 
 function deleteCustomer(id) {
     $.ajax({
-        url: BASE_URL + 'customer?cusID=' + id,
-        method: 'delete',
+        url: BASE_URL + 'customer?id=' + id,
+        method: 'DELETE',
         success: function (resp) {
             alert(resp.message);
             getAllCustomers();
@@ -141,7 +156,7 @@ function deleteCustomer(id) {
 function searchCustomer(id) {
     let resp = false;
     $.ajax({
-        url: BASE_URL + 'customer',
+        url: BASE_URL + 'customer?id=' + id,
         dataType: "json",
         async: false,
         success: function (response) {
@@ -154,7 +169,7 @@ function searchCustomer(id) {
 
         },
         error: function (error) {
-            resp=false;
+            resp = false;
             alert(error.responseJSON.message);
         }
     });
@@ -180,7 +195,7 @@ function updateCustomer(id) {
 
             $.ajax({
                 url: BASE_URL + 'customer',
-                method: 'put',
+                method: 'PUT',
                 contentType: "application/json",
                 data: JSON.stringify(customer),
                 success: function (resp) {

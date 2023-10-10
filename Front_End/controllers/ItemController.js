@@ -65,7 +65,7 @@ $("#btn-clear").click(function () {
 
 // CRUD operation Functions
 function saveItem() {
-    let itemCode = $("#itemCode").val();
+    /*let itemCode = $("#itemCode").val();
     //check item is exists or not?
     if (searchItem(itemCode.trim()) == undefined) {
 
@@ -89,7 +89,22 @@ function saveItem() {
     } else {
         alert("Item already exits.!");
         clearItemInputFields();
-    }
+    }*/
+
+    let itemFormData = $("#itemForm").serialize();
+    $.ajax({
+        url: BASE_URL + "item",
+        method: "post",
+        data: itemFormData,
+        success: function (res) {
+            alert(res.message);
+            clearItemInputFields();
+            getAllItems();
+        },
+        error: function (error) {
+            alert(error.responseJSON.message);
+        }
+    });
 }
 
 function getAllItems() {
@@ -105,7 +120,7 @@ function getAllItems() {
                 let item = items[i];
                 let code = item.code;
                 let description = item.description;
-                let qtyOnHand = item.qty;
+                let qtyOnHand = item.qtyOnHand;
                 let unitPrice = item.unitPrice;
                 let row = `<tr><td>${code}</td><td>${description}</td><td>${qtyOnHand}</td><td>${unitPrice}</td></tr>`;
                 $("#tblItem").append(row);
@@ -139,7 +154,7 @@ function deleteItem(code) {
 function searchItem(code) {
     let resp = false;
     $.ajax({
-        url: BASE_URL + 'item',
+        url: BASE_URL + 'item?code=' + code,
         dataType: "json",
         async: false,
         success: function (response) {
